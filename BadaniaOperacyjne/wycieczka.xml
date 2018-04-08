@@ -1,0 +1,19 @@
+<ROOT>
+	<CHOICE>Barcelona</CHOICE>
+	<CHOICE>Reykjavik</CHOICE>
+	<CHOICE>Rome</CHOICE>
+	<CRITERION name="Overall Satisfaction" m="1.0 3.0 4.0; 0.333333333333 1.0 5.0; 0.25 0.2 1.0">
+		<CRITERION name="Cost" m="1.0 8.0; 0.125 1.0">
+			<CRITERION name="Food" m="1.0 5.0 4.0; 0.2 1.0 3.0; 0.25 0.333333333333 1.0"/>
+			<CRITERION name="Hotel" m="1.0 1.0 2.0; 1.0 1.0 3.0; 0.5 0.333333333333 1.0"/>
+		</CRITERION>
+		<CRITERION name="Weather" m="1.0 7.0; 0.142857142857 1.0">
+			<CRITERION name="Sun" m="1.0 9.0 8.0; 0.111111111111 1.0 5.0; 0.125 0.2 1.0"/>
+			<CRITERION name="Rain" m="1.0 3.0 6.0; 0.333333333333 1.0 2.0; 0.166666666667 0.5 1.0"/>
+		</CRITERION>
+		<CRITERION name="Sightseeing" m="1.0 6.0; 0.166666666667 1.0">
+			<CRITERION name="Attractions" m="1.0 4.0 6.0; 0.25 1.0 4.0; 0.166666666667 0.25 1.0"/>
+			<CRITERION name="Nature" m="1.0 2.0 7.0; 0.5 1.0 5.0; 0.142857142857 0.2 1.0"/>
+		</CRITERION>
+	</CRITERION>
+</ROOT>

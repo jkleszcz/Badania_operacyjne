@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ROOT>
+    <CHOICE>Pepsi</CHOICE>
+    <CHOICE>Cola</CHOICE>
+    <CHOICE>Woda z biedronki</CHOICE>
+    <CRITERION name="Satysfakcja" m="1.0 5.0 8.0; 0.2 1.0 6.0; 0.125 0.16666666666666666 1.0">
+        <CRITERION name="Smak" m="1.0 3.0 8.0; 0.3333333333333333 1.0 5.0; 0.125 0.2 1.0"/>
+        <CRITERION name="Koszt" m="1.0 1.0 0.3; 1.0 1.0 0.3; 3.3333333333333335 3.3333333333333335 1.0"/>
+        <CRITERION name="Etykieta" m="1.0 2.0 6.0; 0.5 1.0 5.0; 0.16666666666666666 0.2 1.0"/>
+    </CRITERION>
+</ROOT>

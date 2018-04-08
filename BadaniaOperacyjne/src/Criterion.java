@@ -212,7 +212,7 @@ public class Criterion {
             for(int i = 0; i<this.eigenvectorRanking.length ; ++i){
                 this.eigenvectorRanking[i] = 0;
                 this.geometricRanking[i] = 0;
-                for(int j=0 ; j<Root.choices.size(); ++j){
+                for(int j=0 ; j<this.subcrit.size(); ++j){
                     this.eigenvectorRanking[i] += this.eigenvector[j] * this.subcrit.get(j).eigenvectorRanking[i];
                     this.geometricRanking[i] += this.geomVector[j] * this.subcrit.get(j).geometricRanking[i];
                 }

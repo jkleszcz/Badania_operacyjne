@@ -1,0 +1,19 @@
+<ROOT>
+	<CHOICE>al1</CHOICE>
+	<CHOICE>al2</CHOICE>
+	<CHOICE>al3</CHOICE>
+	<CRITERION name="main" m="1.0 2.0 1.0; 0.5 1.0 3.0; 1.0 0.3333333333333333 1.0">
+		<CRITERION name="kryt1" m="1.0 2.0; 0.5 1.0">
+
+		<CRITERION name="lol1" m="1.0 1.0 2.0; 1.0 1.0 3.0; 0.5 0.3333333333333333 1.0"/>
+
+		<CRITERION name="lol2" m="1.0 3.0 2.0; 0.3333333333333333 1.0 1.0; 0.5 1.0 1.0"/>
+
+	</CRITERION>
+
+		<CRITERION name="kryt2" m="1.0 4.0 0.2; 0.25 1.0 0.6; 5.0 1.6666666666666667 1.0"/>
+
+		<CRITERION name="kryt3" m="1.0 0.5 3.0; 2.0 1.0 1.0; 0.3333333333333333 1.0 1.0"/>
+
+	</CRITERION>
+</ROOT>
