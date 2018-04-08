@@ -1,0 +1,13 @@
+<ROOT>
+	<CHOICE>Krosno</CHOICE>
+	<CHOICE>Kraków</CHOICE>
+	<CHOICE>Barcelona</CHOICE>
+	<CRITERION name="Zarobki" m="1.0 2.0 1.0; 0.5 1.0 0.5; 1.0 2.0 1.0">
+
+		<CRITERION name="satysfakcja" m="1.0 2.0 4.0; 0.5 1.0 2.0; 0.25 0.5 1.0"/>
+
+		<CRITERION name="możliwości" m="1.0 1.0 3.0; 1.0 1.0 4.0; 0.3333333333333333 0.25 1.0"/>
+
+		<CRITERION name="rozwój" m="1.0 0.2 0.5; 5.0 1.0 1.0; 2.0 1.0 1.0"/>
+	</CRITERION>
+</ROOT>

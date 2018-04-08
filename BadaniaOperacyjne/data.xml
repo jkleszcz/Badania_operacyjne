@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ROOT>
+    <CHOICE>Radom</CHOICE>
+    <CHOICE>Sosnowiec</CHOICE>
+    <CHOICE>Wachock</CHOICE>
+    <CRITERION name="2" m="1.0 2.0; 0.5 1.0;">
+        <CRITERION name="Wiesniaki" m="1.0 2.0 3.0; 0.5 1.0 5.0; 0.3333333333333333 0.2 1.0;"/>
+        <CRITERION name="Gorsze" m="1.0 3.0 5.0; 0.3333333333333333 1.0 0.3; 0.2 3.3333333333333335 1.0;"/>
+    </CRITERION>
+</ROOT>
