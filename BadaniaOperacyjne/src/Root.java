@@ -26,7 +26,6 @@ public class Root {
     }
 
     public void addCriterion(String c){
-        //Scanner scan = new Scanner(System.in);
         Criterion criterion = new Criterion(c);
         criterion.setProperties();
         this.c = criterion;
@@ -82,11 +81,13 @@ public class Root {
     public static void main(String[] argv) {
         String command = "";
         Scanner s = new Scanner(System.in);
+        Root root = null;
         while (true) {
             //MENU
             System.out.println("Please choose one of the following option:");
             System.out.println("(N) - to create new structure");
             System.out.println("(R) - to read existing structure");
+            System.out.println("(C) - to count the eigenvectorRanking");
             System.out.println("(Q) - to exit");
 
             command = s.nextLine();
@@ -95,11 +96,25 @@ public class Root {
                 break;
             else if (command.equalsIgnoreCase("R")) {
                 System.out.println("File?");
-                Root root = Root.read(s.nextLine());
+                root = Root.read(s.nextLine());
                 root.readPropertiesOfElements();
                 System.out.print(root);
-            } else {
-                Root root = new Root();
+            }
+            else if(command.equalsIgnoreCase("C")){
+                if(root != null) {
+                    root.c.countRanking();
+                    System.out.println("Eigenvector:");
+                    for(int i = 0; i<root.c.eigenvectorRanking.length ; ++i){
+                        System.out.println(root.c.eigenvectorRanking[i]);
+                    }
+                    System.out.println("Geometric mean:");
+                    for(int i = 0; i<root.c.geometricRanking.length ; ++i){
+                        System.out.println(root.c.geometricRanking[i]);
+                    }
+                }
+            }
+            else {
+                root = new Root();
                 int choises;
                 System.out.println("How many choises");
                 choises = s.nextInt();

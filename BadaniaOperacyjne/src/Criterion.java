@@ -9,34 +9,54 @@ import java.util.Scanner;
 
 public class Criterion {
 
+    //Parent criterion of this object
     @XmlTransient
     public Criterion parent;
+
+    //Path from root criterion to this object
     @XmlTransient
     public String path;
+
+    //Values of comparisions using 2D array representation
     @XmlTransient
     public double[][] valuesForMatrix;
+
+    //Comparisions matrix size
     @XmlTransient
     public int matrixSize;
+
+    //Final comparisions matrix
     @XmlTransient
     public Matrix matrix;
 
+    @XmlTransient
+    public double[] eigenvector;
+
+    @XmlTransient
+    public double eigenvectorRanking[];
+
+    @XmlTransient
+    public double geomVector[];
+
+    @XmlTransient
+    public double geometricRanking[];
+
+    //XML elements
     @XmlElement(name="CRITERION")
     List<Criterion> subcrit = new ArrayList<>();
-
     @XmlAttribute
     String name;
-
     @XmlAttribute
     String m;
 
-/////////////////////////// Constructors ////////////////////////////////////////
+    //Default constructor required to read XML file
     Criterion(){}
     Criterion(String c){
         this.name = c;
     }
 
 
-    //////////////////////// Read from XML file //////////////////////////////////
+    //Set properties after read XML file
     public void readProperties(){
 
         if(this.parent == null)
@@ -48,8 +68,6 @@ public class Criterion {
             c.parent = this;
             c.readProperties();
         }
-
-
 
         this.create2DArray();
         this.readMatrixFromM();
@@ -74,7 +92,7 @@ public class Criterion {
     }
 
 
-    ///////////////////////// Write to XML file /////////////////////////////////////
+    //Reading choises and criterion data from user
     public void setProperties(){
         Scanner scanner = new Scanner(System.in);
 
@@ -104,10 +122,9 @@ public class Criterion {
         }
 
         this.setM();
-
-
     }
 
+    //Create 2D array
     public void create2DArray(){
         if(this.subcrit.isEmpty()){
             this.matrixSize = Root.choices.size();
@@ -124,6 +141,7 @@ public class Criterion {
         }
     }
 
+    //Read comparision values form user
     public void setValues(int i, int j){
         if(i == j){
             this.valuesForMatrix[i][j] = 1;
@@ -141,12 +159,13 @@ public class Criterion {
         }
     }
 
+    //Create m attribute for XML file
     public void setM(){
         StringBuilder b = new StringBuilder();
         for(int i=0 ; i<matrixSize ; ++i){
             for(int j=0 ; j<matrixSize ; ++j){
                 b.append(this.valuesForMatrix[i][j]);
-                if(j == matrixSize-1)
+                if(j == matrixSize-1 && i != matrixSize-1)
                     b.append(";");
                 if(i == this.matrixSize-1 && j == this.matrixSize-1)
                     b.append("");
@@ -157,6 +176,7 @@ public class Criterion {
         this.m = b.toString();
     }
 
+    //Auxiliary function to control readed data
     public String toString(){
         StringBuilder b = new StringBuilder();
         b.append(this.path);
@@ -175,9 +195,77 @@ public class Criterion {
         return b.toString();
     }
 
+    //Matrix representation of comparision values
     public Matrix createMatrix(){
         this.matrix = new Matrix(this.valuesForMatrix);
         return this.matrix;
+    }
+    public void countRanking(){
+        this.countEigenvector();
+        this.countGeomVector();
+        if(!this.subcrit.isEmpty()){
+            for(Criterion c : this.subcrit){
+                c.countRanking();
+            }
+            this.eigenvectorRanking = new double[Root.choices.size()];
+            this.geometricRanking = new double[Root.choices.size()];
+            for(int i = 0; i<this.eigenvectorRanking.length ; ++i){
+                this.eigenvectorRanking[i] = 0;
+                this.geometricRanking[i] = 0;
+                for(int j=0 ; j<Root.choices.size(); ++j){
+                    this.eigenvectorRanking[i] += this.eigenvector[j] * this.subcrit.get(j).eigenvectorRanking[i];
+                    this.geometricRanking[i] += this.geomVector[j] * this.subcrit.get(j).geometricRanking[i];
+                }
+            }
+        }
+
+    }
+
+    public void countEigenvector(){
+        this.createMatrix();
+        double eigenvalues[] = this.matrix.eig().getRealEigenvalues();
+        double maxValue = -1000;
+        int maxValueIndex = -1;
+        for(int i=0 ; i<eigenvalues.length ; ++i){
+            if(eigenvalues[i]>maxValue){
+                maxValueIndex = i;
+                maxValue = eigenvalues[i];
+            }
+        }
+        this.eigenvector = new double[this.matrix.getRowDimension()];
+        double eigenSum = 0;
+        for(int i=0 ; i<this.eigenvector.length ; ++i) {
+            this.eigenvector[i] = this.matrix.eig().getV().get(i, maxValueIndex);
+            eigenSum += this.eigenvector[i];
+        }
+        for(int i=0 ; i<this.eigenvector.length ; ++i){
+            this.eigenvector[i] = this.eigenvector[i]/eigenSum;
+        }
+
+        if(this.subcrit.isEmpty()){
+            this.eigenvectorRanking = this.eigenvector;
+        }
+
+    }
+
+    public void countGeomVector(){
+        this.geomVector = new double[this.matrix.getRowDimension()];
+        double geomSum = 0;
+        for(int i=0 ; i<this.matrix.getRowDimension() ; ++i){
+            double multiRow = 1;
+            for(int j=0 ; j<this.matrix.getColumnDimension() ; ++j){
+                multiRow *= this.matrix.get(i,j);
+            }
+            this.geomVector[i] = Math.pow(multiRow,(1.0/this.matrix.getColumnDimension()));
+            geomSum +=this.geomVector[i];
+        }
+
+        for(int i=0 ; i<this.geomVector.length ; ++i){
+            this.geomVector[i] = this.geomVector[i]/geomSum;
+        }
+
+        if(this.subcrit.isEmpty())
+            this.geometricRanking = this.geomVector;
     }
 
 
